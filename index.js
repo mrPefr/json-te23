@@ -40,3 +40,48 @@ app.get("/create/:name/:price", function(req, res){
 
 })
 
+
+
+app.get("/delete/:id", (req, res)=>{
+
+    // Hämta id från url via params
+    const id = req.params.id;
+
+    // hämta alla produkter som ligger lagrade i json-fil.
+    const products = getData();
+
+    // Skapa ny array med alla produkter som INTE har det id som användaren skickat in
+    const filteredProducts = products.filter(p=> p.id != id)
+
+    saveData(filteredProducts);
+
+    res.redirect("/?"+id+"_is_deleted");
+
+
+})
+
+
+
+app.get("/update/:id", (req, res)=>{
+
+
+    const id = req.params.id;
+
+    // hämta alla produkter
+
+    const products = getData();
+
+    // Hitta produkt med id som skickats via params
+
+
+    const uProd = products.find(p=>p.id == id)
+
+    uProd.name = req.query.name || uProd.name;
+    uProd.price = req.query.price || uProd.price;
+
+    saveData(products);
+
+    res.redirect("/")
+  
+
+})
