@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            font-family: system-ui;
+        }
+        header, main, footer, nav, main div{
+            padding:5%;
+            min-height:5vh;
+            border:1px solid #505050;
+        }
+        main{
+            min-height:30vh;
+        }
+        nav a{
+            text-decoration: none;
+            color:#707070;
+        }
+        nav{
+            display:flex;
+            gap:20px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h2>JSON DB application</h2>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/products">PRODUCTS</a>
+            <a href="/products/create">CREATE</a>
+        </nav>
+    </header>
+    <main>
+
+        %content%
+
+    </main>
+    <footer>
+        <h3><i>End of page...</i></h3>
+    </footer>
+</body>
+</html>
