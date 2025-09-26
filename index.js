@@ -76,6 +76,8 @@ app.get("/update/:id", (req, res)=>{
 
     const uProd = products.find(p=>p.id == id)
 
+    if(!uProd) return res.redirect("/?error=no_product_to_update")
+
     uProd.name = req.query.name || uProd.name;
     uProd.price = req.query.price || uProd.price;
 
