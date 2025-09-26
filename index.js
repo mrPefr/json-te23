@@ -1,27 +1,62 @@
 const express = require("express");
 const app = express();
 const port = process.env.port || 3400;
-
+const escape = require("escape-html");
 
 // Läs in skapade funktioner från db.js
 const {getData, saveData} = require("./db");
 
 
+function render(content){
+
+    let html = require("fs").readFileSync("template.html").toString();
+
+   return html.replace("%content%", content);
+
+}
+
+
+
+
 app.listen(port, function(){ console.log("Lyssnar på port "+port)})
+
+
+app.get("/", function(req, res){
+
+    res.send(render("HOME"))
+
+});
+
+
+
 
 // Route som hämtar datan och spottar ut den som JSON på skärmen.
 // Det blir html om några lektioner.
-app.get("/", function(req, res){
-    res.send(getData());
+app.get("/products", function(req, res){
+  
+    const products = getData();
+
+    const html = products.map(p=>{
+        return `
+            <div id = "id_${p.id}">
+                <h3>${escape(p.name)}</h3>
+                <h5><i>${escape(p.price)}</i></h5>
+                <a href="/products/delete/${p.id}">delete</a>
+            </div>
+        `
+    }).join("")
+
+    res.send(render(html));
+
 })
 
 
 // Vår första create-route där vi för enkelhetens skull använder params.
-app.get("/create/:name/:price", function(req, res){
+app.get("/products/create", function(req, res){
 
 
-    // Hämtar data från params
-    const product = req.params;
+    // Hämtar data från queryString
+    const product = req.query;
     // Genererar ett unikt id.
     product.id = Date.now();
 
@@ -35,14 +70,14 @@ app.get("/create/:name/:price", function(req, res){
     saveData(allProducts);
 
     // Istället för att skicka data så skickar vi användaren tillbaka till route / där alla produkter redan visas.
-    res.redirect("/");
+    res.redirect("/products");
 
 
 })
 
 
 
-app.get("/delete/:id", (req, res)=>{
+app.get("/products/delete/:id", (req, res)=>{
 
     // Hämta id från url via params
     const id = req.params.id;
@@ -55,7 +90,7 @@ app.get("/delete/:id", (req, res)=>{
 
     saveData(filteredProducts);
 
-    res.redirect("/?"+id+"_is_deleted");
+    res.redirect("/products?"+id+"_is_deleted");
 
 
 })

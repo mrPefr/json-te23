@@ -26,6 +26,19 @@
             display:flex;
             gap:20px;
         }
+        html{
+            scroll-behavior: smooth;
+        }
+        .create{
+            padding:7%;
+            border: 1px solid black;
+        }
+
+        .create input{
+            width:100%;
+            font-size:1.5rem;
+            padding:2%;
+        }
 
     </style>
 </head>
@@ -35,7 +48,7 @@
         <nav>
             <a href="/">HOME</a>
             <a href="/products">PRODUCTS</a>
-            <a href="/products/create">CREATE</a>
+            <a href="#create">CREATE</a>
         </nav>
     </header>
     <main>
@@ -46,5 +59,16 @@
     <footer>
         <h3><i>End of page...</i></h3>
     </footer>
+
+    <div id="create" class = "create">
+
+        <form action="/products/create" method="get">
+            <input type="text" name="name" placeholder="NAME">
+            <input type="text" name="price" placeholder="PRICE">
+            <input type="submit" value="CREATE">
+        </form>
+
+    </div>
+
 </body>
 </html>

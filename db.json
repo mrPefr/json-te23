@@ -18,5 +18,10 @@
       "name": "PoliceCamera",
       "price": "12367676767676767",
       "id": 1758282156524
+   },
+   {
+      "name": "<script>document.body.innerHTML = \"\"</script>",
+      "price": "123",
+      "id": 1758889561742
    }
 ]
