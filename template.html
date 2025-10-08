@@ -32,6 +32,7 @@
         .create{
             padding:7%;
             border: 1px solid black;
+            min-height:100vh;
         }
 
         .create input{
@@ -49,6 +50,7 @@
             <a href="/">HOME</a>
             <a href="/products">PRODUCTS</a>
             <a href="#create">CREATE</a>
+            <a href="#login">LOGIN</a>
         </nav>
     </header>
     <main>
@@ -61,13 +63,20 @@
     </footer>
 
     <div id="create" class = "create">
-
+        <h2>CREATE PRDODUCT</h2>
         <form action="/products/create" method="get">
             <input type="text" name="name" placeholder="NAME">
             <input type="text" name="price" placeholder="PRICE">
             <input type="submit" value="CREATE">
         </form>
 
+    </div>
+    <div id="login" class="create">
+        <h2>LOGIN</h2>
+        <form action="/login" method="post">
+            <input type="password" name="pin" placeholder="PIN">
+            <input type="submit" value="LOGIN">
+        </form>
     </div>
 
 </body>

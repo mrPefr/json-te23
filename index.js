@@ -2,9 +2,26 @@ const express = require("express");
 const app = express();
 const port = process.env.port || 3400;
 const escape = require("escape-html");
+const session = require("express-session");
 
 // Läs in skapade funktioner från db.js
 const {getData, saveData} = require("./db");
+
+/* FIXA SÅ ATT VI FÅR EN REQ.BODY DVS TA EMOT DATA VIA POST */
+
+app.use(express.urlencoded({extended:true}))
+
+
+
+// sätt igång session
+app.use(session(
+    {
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}
+));
 
 
 function render(content){
@@ -24,6 +41,29 @@ app.listen(port, function(){ console.log("Lyssnar på port "+port)})
 app.get("/", function(req, res){
 
     res.send(render("HOME"))
+
+});
+
+app.get("/session", function(req, res){
+
+    res.send(req.session);
+
+});
+
+
+
+
+
+app.post("/login", function(req, res){
+
+    const pin = req.body.pin;
+
+    if(pin != process.env.pin) return res.send(render("Bad Credentials"));
+
+
+    req.session.auth = true;  // Hålla oss inloggade.
+
+    res.send(render("Login Success"));
 
 });
 
@@ -54,6 +94,7 @@ app.get("/products", function(req, res){
 // Vår första create-route där vi för enkelhetens skull använder params.
 app.get("/products/create", function(req, res){
 
+    if(!req.session.auth) return res.send(render("FORBIDDEN"))
 
     // Hämtar data från queryString
     const product = req.query;
@@ -78,6 +119,9 @@ app.get("/products/create", function(req, res){
 
 
 app.get("/products/delete/:id", (req, res)=>{
+
+
+    if(!req.session.auth) return res.send(render("FORBIDDEN"))
 
     // Hämta id från url via params
     const id = req.params.id;

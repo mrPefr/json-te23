@@ -1,10 +1,5 @@
 [
    {
-      "name": "mouse",
-      "price": "34",
-      "id": 1758098397788
-   },
-   {
       "name": "keyboard",
       "price": "340",
       "id": 1758098403992
@@ -20,8 +15,18 @@
       "id": 1758282156524
    },
    {
-      "name": "<script>document.body.innerHTML = \"\"</script>",
+      "name": "Ipad charger",
+      "price": "12000",
+      "id": 1759490867177
+   },
+   {
+      "name": "Friday Chicken",
       "price": "123",
-      "id": 1758889561742
+      "id": 1759494576540
+   },
+   {
+      "name": "Headset",
+      "price": "1234",
+      "id": 1759827633167
    }
 ]
